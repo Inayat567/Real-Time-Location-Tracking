@@ -6,10 +6,12 @@ import FeedBacks from './Feedbacks';
 import LiveLocation from './LiveLocation';
 import NewTask from './New Task';
 import PastTasks from './Past Tasks';
-import Progress from './Progress';
+import ProgressReport from './ProgressReport';
 import TaskStatus from './TaskStatus';
 import TodayTask from './Today Tasks';
 import TrackEmployee from './TrackEmployee/indes';
+import OnBoarding from './Login';
+import Complaints from './Complaints';
 
 export {
   Home,
@@ -20,8 +22,10 @@ export {
   LiveLocation,
   NewTask,
   PastTasks,
-  Progress,
+  ProgressReport,
   TaskStatus,
   TodayTask,
   TrackEmployee,
+  OnBoarding,
+  Complaints
 };

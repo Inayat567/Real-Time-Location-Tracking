@@ -2,6 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import colors from '../../constants/colors';
 import {useNavigation} from '@react-navigation/native';
+import {FlatGrid} from 'react-native-super-grid';
 
 interface PropObj {
   name: string;
@@ -18,19 +19,20 @@ const FlexBox = (props: PropType) => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      {props.data.map(item => (
-        <TouchableOpacity
-          style={[
-            styles.box,
-            {backgroundColor: item.color ? item.color : colors.GRAY},
-          ]}
-          onPress={() => {
-            navigation.navigate(item.route);
-          }}>
-          <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.number}>{item.number}</Text>
-        </TouchableOpacity>
-      ))}
+      <FlatGrid
+        itemDimension={130}
+        data={props.data}
+        style={styles.gridView}
+        contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
+        spacing={10}
+        renderItem={({item}) => (
+          <TouchableOpacity
+            style={[styles.itemContainer, {backgroundColor: item.color}]}
+            onPress={() => navigation.navigate(item.route)}>
+            <Text style={styles.itemName}>{item.name.toUpperCase()}</Text>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 };
@@ -59,5 +61,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 18,
     color: colors.WHITE,
+  },
+  gridView: {
+    marginTop: 10,
+    flex: 1,
+  },
+  itemContainer: {
+    justifyContent: 'center',
+    borderRadius: 5,
+    padding: 10,
+    height: 150,
+    alignItems: 'center',
+  },
+  itemName: {
+    fontSize: 18,
+    alignSelf: 'center',
+    textAlign: 'center',
+    color: colors.WHITE,
+    fontWeight: 'bold',
   },
 });

@@ -7,4 +7,5 @@ export default {
     GRAY: 'gray',
     BLUE: '#6558F5',
     WHITE: "#fff",
+    RED: 'red',
 }

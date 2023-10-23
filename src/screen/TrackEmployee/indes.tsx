@@ -1,16 +1,19 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import colors from '../../constants/colors';
+import GoogleMapView from '../../components/MapView';
+import { MapRouteData } from '../../constants/map';
 
-const Progress = () => {
+const TrackEmployee = () => {
+
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Progress</Text>
+      <GoogleMapView data={MapRouteData} />
     </View>
   );
 };
 
-export default Progress;
+export default TrackEmployee;
 
 const styles = StyleSheet.create({
   container: {

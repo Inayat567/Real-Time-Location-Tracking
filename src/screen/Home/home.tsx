@@ -10,7 +10,9 @@ const Home = ({navigation} : NavigationProps) => {
 
   const BoxData1 = [
     {name: 'Employees', number: '23', color: 'lightgray', route: 'Employee'},
-    {name: 'Track', number: '08', color: 'gray', route: 'Trackemployee'},
+    {name: 'Track Orders', number: '08', color: 'gray', route: 'Trackemployee'},
+    {name: 'Complaints', number: '01', color: '#606060', route: 'Complaint'},
+    {name: 'Task Status', number: '15', color: '#B8B8B8', route: 'Taskstatus'},
   ];
 
   const BoxData2 = [
@@ -21,6 +23,8 @@ const Home = ({navigation} : NavigationProps) => {
   const BoxData3 = [
     {name: 'Today Tasks', number: '05', color: 'darkgreen', route: 'Todaytask'},
     {name: 'Past Tasks', number: '49', color: 'gray', route: 'Pasttask'},
+    {name: 'Progress', number: '78%', color: 'green', route: 'Progress'},
+    {name: 'Feedbacks', number: '15', color: 'darkred', route: 'Feedback'},
   ];
 
   const BoxData4 = [
@@ -48,12 +52,12 @@ const Home = ({navigation} : NavigationProps) => {
       {role === 'manager' ? (
         <>
           <FlexBox data={BoxData1} />
-          <FlexBox data={BoxData2} />
+          {/* <FlexBox data={BoxData2} /> */}
         </>
       ) : (
         <>
           <FlexBox data={BoxData3} />
-          <FlexBox data={BoxData4} />
+          {/* <FlexBox data={BoxData4} /> */}
         </>
       )}
       <View>

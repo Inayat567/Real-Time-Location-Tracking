@@ -10,22 +10,39 @@ import {
   LiveLocation,
   NewTask,
   PastTasks,
-  Progress,
+  ProgressReport,
   TaskStatus,
   TodayTask,
   TrackEmployee,
+  OnBoarding,
+  Complaints,
 } from '../screen';
-import OnBoarding from '../screen/Login';
-import Complaints from '../screen/Complaints';
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = {
+  Home: undefined;
+  OnBoarding: undefined;
+  Signin: undefined;
+  Signup: undefined;
+  Complaint: undefined;
+  Employee: undefined;
+  Feedback: undefined;
+  Livelocation: undefined;
+  Newtask: undefined;
+  Pasttask: undefined;
+  Progress: undefined;
+  Taskstatus: undefined;
+  Todaytask: undefined;
+  Trackemployee: undefined;
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="onBoaring">
+      <Stack.Navigator initialRouteName="OnBoarding">
         <Stack.Screen
-          name="onBoaring"
+          name="OnBoarding"
           component={OnBoarding}
           options={{headerShown: false}}
         />
@@ -76,7 +93,7 @@ const Navigation = () => {
         />
         <Stack.Screen
           name="Progress"
-          component={Progress}
+          component={ProgressReport}
           options={{headerShown: false}}
         />
         <Stack.Screen
