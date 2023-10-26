@@ -17,23 +17,7 @@ import {
   OnBoarding,
   Complaints,
 } from '../screen';
-
-type RootStackParamList = {
-  Home: undefined;
-  OnBoarding: undefined;
-  Signin: undefined;
-  Signup: undefined;
-  Complaint: undefined;
-  Employee: undefined;
-  Feedback: undefined;
-  Livelocation: undefined;
-  Newtask: undefined;
-  Pasttask: undefined;
-  Progress: undefined;
-  Taskstatus: undefined;
-  Todaytask: undefined;
-  Trackemployee: undefined;
-};
+import { RootStackParamList } from '../Types/root';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

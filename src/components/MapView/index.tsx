@@ -22,10 +22,10 @@ const GoogleMapView = (props: PropType) => {
     <MapView
       style={styles.map}
       initialRegion={{
-        latitude: props.data ? props?.data[0].latitude : 33.565109,
-        longitude: props.data ? props.data[0].longitude : 73.016914,
-        // latitude: 33.565109,
-        // longitude: 73.016914,
+        // latitude: props.data ? props?.data[0].latitude : 33.565109,
+        // longitude: props.data ? props.data[0].longitude : 73.016914,
+        latitude: 33.565109,
+        longitude: 73.016914,
         latitudeDelta: 0.1, //Zoom level
         longitudeDelta: 0.1,
       }}

@@ -64,7 +64,7 @@ const SignUp = ({navigation}: NavigationProps) => {
                 const errorMessage = error.message;
                 console.log('Error signing in:', errorMessage);
                 // if(error.message)
-                setError('Email or Password mismatched ' + error);
+                setError('Wrong! Email or Password! ');
               });
           } else {
             setError('Invalid Email');

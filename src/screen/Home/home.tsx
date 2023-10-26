@@ -39,7 +39,7 @@ const Home = ({navigation}: NavigationProps) => {
         source={require('../../Assets/Images/avatar.png')}
         style={styles.image}
       />
-      {role !== 'manager' ? (
+      {role === 'manager' ? (
         <>
           <FlexBox data={BoxData1} />
         </>

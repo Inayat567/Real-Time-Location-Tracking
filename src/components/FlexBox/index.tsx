@@ -3,6 +3,8 @@ import React from 'react';
 import colors from '../../constants/colors';
 import {useNavigation} from '@react-navigation/native';
 import {FlatGrid} from 'react-native-super-grid';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../Types/root';
 
 interface PropObj {
   name: string;
@@ -16,7 +18,7 @@ interface PropType {
 }
 
 const FlexBox = (props: PropType) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
     <View style={styles.container}>
       <FlatGrid
