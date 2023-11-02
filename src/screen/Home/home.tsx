@@ -1,12 +1,19 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import colors from '../../constants/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FlexBox from '../../components/FlexBox';
 import {NavigationProps} from '../../Types/root';
+import {getDateFormat} from '../../Utils/function';
+import {firebase} from '@react-native-firebase/firestore';
+import AuthContext, {AuthContextType} from '../../components/Context/context';
 
 const Home = ({navigation}: NavigationProps) => {
   const [role, setRole] = useState<string | null>('');
+  const {routes, setRoutes, setLiveRoutes} =
+    useContext<AuthContextType>(AuthContext);
+
+  const [dataSync, setDataSync] = useState(false);
 
   const BoxData1 = [
     {name: 'Employees', number: '23', color: 'lightgray', route: 'Employee'},
@@ -30,7 +37,57 @@ const Home = ({navigation}: NavigationProps) => {
       .catch(error => {
         console.log('Error: ' + error);
       });
-  });
+  }, []);
+
+  const getCarRoutes = async (carName: string = 'Car1') => {
+    let todayDate = getDateFormat(new Date());
+    let routesCollectionRef = firebase
+      .firestore()
+      .collection('Routes')
+      .doc(todayDate)
+      .collection(carName)
+      .doc(todayDate);
+
+    const res = await routesCollectionRef.get();
+    if (!res.exists) {
+      throw new Error(`No document to get for ${carName}`);
+    } else {
+      console.log('Routes from firebase: ', res?.data());
+      setRoutes(res?.data());
+    }
+  };
+
+  const updateRouts = async () => {
+    try {
+      const todayDate = getDateFormat(new Date());
+      const carName = routes?.carName || 'Car1';
+
+      const docRef = firebase
+        .firestore()
+        .collection('liveCoordinates')
+        .doc(todayDate)
+        .collection(carName)
+        .doc(todayDate);
+
+      const res = await docRef.get();
+      if (!res.exists) {
+        throw new Error(`No document`);
+      } else {
+        console.log('Routes from firebase: ', res?.data());
+        let tempData = res?.data();
+        console.log('Routes value: ', tempData?.routes);
+        setLiveRoutes([...tempData?.routes]);
+      }
+    } catch (error) {
+      console.log('Error: ', error);
+    }
+  };
+
+  if (!dataSync) {
+    setDataSync(true);
+    getCarRoutes();
+    updateRouts();
+  }
 
   return (
     <View style={styles.container}>

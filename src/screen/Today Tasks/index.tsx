@@ -1,13 +1,25 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {StyleSheet, View, Alert} from 'react-native';
+import React, {useEffect, useContext} from 'react';
 import colors from '../../constants/colors';
 import GoogleMapView from '../../components/MapView';
-import { MapRouteData } from '../../constants/map';
+import {NavigationProps} from '../../Types/root';
+import AuthContext from '../../components/Context/context';
 
-const TodayTask = () => {
+const TodayTask = ({navigation}: NavigationProps) => {
+  const {routes} = useContext(AuthContext);
+  useEffect(() => {
+    if (
+      routes?.routeCoordinates === undefined ||
+      routes?.routeCoordinates.length === 0
+    ) {
+      Alert.alert('No Task', 'You have no task assigned today!');
+      navigation.goBack();
+    }
+  });
+
   return (
     <View style={styles.container}>
-      <GoogleMapView data={MapRouteData}/>
+      <GoogleMapView data={routes?.routeCoordinates} />
     </View>
   );
 };
@@ -22,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    position:'absolute',
+    position: 'absolute',
     bottom: 20,
     width: '60%',
     height: '5%',

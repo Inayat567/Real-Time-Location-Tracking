@@ -12,15 +12,16 @@ interface PickerProp {
 
 const Picker = ({open, value, setOpen, setValue, items}: PickerProp) => {
   return (
-    <DropDownPicker
-    style={{}}
-      open={open}
-      value={value}
-      items={items}
-      setOpen={setOpen}
-      setValue={setValue}
-      //   setItems={setItems}
-    />
+    <View>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        dropDownDirection="BOTTOM"
+      />
+    </View>
   );
 };
 

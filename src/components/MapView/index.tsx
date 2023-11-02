@@ -17,7 +17,7 @@ type PropType = {
 };
 
 const GoogleMapView = (props: PropType) => {
-  console.log(props.data);
+  console.log("Google Route Coordinates: ", props.data);
   return (
     <MapView
       style={styles.map}

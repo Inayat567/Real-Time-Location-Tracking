@@ -8,9 +8,10 @@
 import React, {useEffect} from 'react';
 import {SafeAreaView, AppRegistry, PermissionsAndroid} from 'react-native';
 import {PaperProvider} from 'react-native-paper';
-import { name as appName } from './app.json';
+import {name as appName} from './app.json';
 import ReactNativeForegroundService from '@supersami/rn-foreground-service';
 import Navigation from './src/navigation';
+import {AuthProvider} from './src/components/Context/context';
 
 function App(): JSX.Element {
   useEffect(() => {
@@ -42,9 +43,11 @@ function App(): JSX.Element {
   ReactNativeForegroundService.register();
   return (
     <SafeAreaView style={{flex: 1}}>
-      <PaperProvider>
-        <Navigation />
-      </PaperProvider>
+      <AuthProvider>
+        <PaperProvider>
+          <Navigation />
+        </PaperProvider>
+      </AuthProvider>
     </SafeAreaView>
   );
 }

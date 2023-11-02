@@ -21,7 +21,7 @@ const Employees = () => {
     const [showButton, setShowButton] = useState(false);
 
     return (
-      <View style={{}}>
+      <View style={{}} key={props.id}>
         <View style={styles.listView} key={props.id}>
           <Text style={styles.name}>{props.name}</Text>
           <TouchableOpacity onPress={() => setShowButton(!showButton)}>

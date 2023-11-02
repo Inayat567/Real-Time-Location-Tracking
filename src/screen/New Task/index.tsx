@@ -1,20 +1,22 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import React, {useContext, useState} from 'react';
 import colors from '../../constants/colors';
 import GoogleMapView from '../../components/MapView';
 import Picker from '../../components/Picker';
 import SearchBar from '../../components/SearchBar';
 import DateTimePickers from '../../components/DateTimePicker';
-import {getTimeFormat} from '../../Utils/function';
+import {
+  getDateFormat,
+  getTimeFormat,
+  saveRouteToFirebase,
+} from '../../Utils/function';
 import {LatLng} from 'react-native-maps';
+import {NavigationProps} from '../../Types/root';
+import {firebase} from '@react-native-firebase/firestore';
+import AuthContext from '../../components/Context/context';
 
-const NewTask = () => {
+const NewTask = ({navigation}: NavigationProps) => {
+  const {setRoutes} = useContext(AuthContext);
   const [routedate, setRouteData] = useState<LatLng[]>([]);
   const [value, setValue] = useState('');
   const [startTime, setStartTime] = useState(new Date());
@@ -49,10 +51,41 @@ const NewTask = () => {
 
   const UpdateRoute = (val: LatLng) => {
     console.log(val);
-    setRouteData(()=>[...routedate, val]);
+    setRouteData(() => [...routedate, val]);
   };
 
-  const handleAddTask = () => {};
+  const getCarRoutes = async (carName: string = 'Car1') => {
+    let todayDate = getDateFormat(new Date());
+    let routesCollectionRef = firebase
+      .firestore()
+      .collection('Routes')
+      .doc(todayDate)
+      .collection(carName)
+      .doc(todayDate);
+
+    const res = await routesCollectionRef.get();
+    if (!res.exists) {
+      throw new Error(`No document to get for ${carName}`);
+    } else {
+      console.log('Routes from firebase: ', res?.data());
+      setRoutes(res?.data());
+    }
+  };
+
+  const handleAddTask = () => {
+    if (selectedValue === '') {
+      Alert.alert('Select Car', 'Please select Car First');
+    } else if (routedate.length === 0) {
+      Alert.alert('Empty route', 'Please select car Routes');
+    } else {
+      saveRouteToFirebase(selectedValue, startTime, endTime, routedate);
+      Alert.alert('Created', 'Successfully created task');
+      navigation.goBack();
+      getCarRoutes()
+        .then(res => console.log(res))
+        .catch(e => console.log(e));
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -89,8 +122,9 @@ const NewTask = () => {
           style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
+            zIndex: 1,
           }}>
-          <Text style={styles.buttonView}>Select Departure Time:</Text>
+          <Text style={styles.buttonView}>Select Car:</Text>
           <View style={{width: '42%'}}>
             <Picker
               open={isOpen}
