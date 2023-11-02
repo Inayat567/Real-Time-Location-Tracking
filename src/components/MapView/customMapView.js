@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../constants/colors';
 
 const CustomMapView = () => {
+  // This file is currently not using   this was the prevois one
   const [region, setRegion] = useState({
     latitude: 35.285959850000005,
     longitude: 75.66158396666667,
